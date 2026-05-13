@@ -5,11 +5,20 @@ public class CalculadoraCarbono {
     private double fatorEmissao;
 
     public double calcularImpacto(AcaoSustentavel acao) {
-
+        return acao.getFatorCO2() * fatorEmissao;
     }
 
     public int avaliarAcao (AcaoSustentavel acao) {
+        double impacto = calcularImpacto(acao);
+        int pontuacao = (int)impacto *10;
 
+        if (pontuacao > 100) {
+            pontuacao = 100;
+        }
+        if (pontuacao < 0) {
+            pontuacao = 0;
+        }
+        return pontuacao;
     }
 
     public double getFatorEmissao() {
