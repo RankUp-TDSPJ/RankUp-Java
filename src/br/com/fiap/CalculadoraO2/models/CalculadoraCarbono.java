@@ -2,13 +2,13 @@ package br.com.fiap.CalculadoraO2.models;
 
 public class CalculadoraCarbono {
 
-    private double fatorEmissao;
+    private static double fatorEmissao;
 
-    public double calcularImpacto(AcaoSustentavel acao) {
+    public static double calcularImpacto(AcaoSustentavel acao) {
         return acao.getFatorCO2() * fatorEmissao;
     }
 
-    public int avaliarAcao (AcaoSustentavel acao) {
+    public static int avaliarAcao (AcaoSustentavel acao) {
         double impacto = calcularImpacto(acao);
         int pontuacao = (int)impacto *10;
 
