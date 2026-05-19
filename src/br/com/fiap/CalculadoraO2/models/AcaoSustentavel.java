@@ -1,8 +1,9 @@
 package br.com.fiap.CalculadoraO2.models;
 
 import br.com.fiap.CalculadoraO2.enums.Classificacao;
+import br.com.fiap.CalculadoraO2.interfaces.Exibivel;
 
-public class AcaoSustentavel extends Acao{
+public class AcaoSustentavel extends Acao implements Exibivel {
 
     private double fatorCO2;
     private double pontosPorAcao;
@@ -23,6 +24,11 @@ public class AcaoSustentavel extends Acao{
 
     }
 
+    @Override
+    public void exibir() {
+
+    }
+
     public double getFatorCO2() {
         return fatorCO2;
     }
@@ -38,4 +44,6 @@ public class AcaoSustentavel extends Acao{
     public void setPontosPorAcao(double pontosPorAcao) {
         this.pontosPorAcao = pontosPorAcao;
     }
+
+
 }

@@ -1,6 +1,8 @@
 package br.com.fiap.CalculadoraO2.models;
 
-public class Usuario {
+import br.com.fiap.CalculadoraO2.interfaces.Exibivel;
+
+public class Usuario implements Exibivel {
 
     private String nome;
     private String email;
@@ -10,8 +12,12 @@ public class Usuario {
 
     }
 
+    @Override
+    public void exibir() {
+
+    }
+
     public String getNome() {
         return nome;
     }
-
 }
