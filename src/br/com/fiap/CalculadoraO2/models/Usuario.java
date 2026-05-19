@@ -7,6 +7,7 @@ public class Usuario implements Exibivel {
     private String nome;
     private String email;
     private int idade;
+    private PontuacaoUsuario pontuacao;
 
     public void exibirPerfil() {
 

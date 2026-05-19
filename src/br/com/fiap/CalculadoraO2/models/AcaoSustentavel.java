@@ -10,8 +10,8 @@ public class AcaoSustentavel extends Acao implements Exibivel {
 
     public AcaoSustentavel(String nome, String descricao, double fatorCO2, double pontosPorAcao) {
         super(nome, descricao, Classificacao.SUSTENTAVEL);
-        this.fatorCO2 = getFatorCO2();
-        this.pontosPorAcao = getPontosPorAcao();
+        this.fatorCO2 = fatorCO2;
+        this.pontosPorAcao = pontosPorAcao;
     }
 
     @Override
