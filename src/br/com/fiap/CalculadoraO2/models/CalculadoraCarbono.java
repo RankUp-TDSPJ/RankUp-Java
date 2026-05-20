@@ -18,10 +18,10 @@ public class CalculadoraCarbono {
         return pontuacao;
     }
 
+
     public double getFatorEmissao() {
         return fatorEmissao;
     }
-
     public void setFatorEmissao(double fatorEmissao) {
         CalculadoraCarbono.fatorEmissao = fatorEmissao;
     }

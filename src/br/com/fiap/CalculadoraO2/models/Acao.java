@@ -16,10 +16,11 @@ public abstract class Acao {
 
     public abstract void exibirAcao();
 
+
+
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -27,7 +28,6 @@ public abstract class Acao {
     public Classificacao getClassificacao() {
         return classificacao;
     }
-
     public void setClassificacao(Classificacao classificacao) {
         this.classificacao = classificacao;
     }
@@ -35,7 +35,6 @@ public abstract class Acao {
     public String getDescricao() {
         return descricao;
     }
-
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }

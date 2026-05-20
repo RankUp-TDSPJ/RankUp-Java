@@ -30,10 +30,11 @@ public class PontuacaoUsuario implements Exibivel {
         exibirPontuacao();
     }
 
+
+
     public double getPontuacaoTotal() {
         return pontuacaoTotal;
     }
-
     public void setPontuacaoTotal(double pontuacaoTotal) {
         this.pontuacaoTotal = pontuacaoTotal;
     }
@@ -41,7 +42,6 @@ public class PontuacaoUsuario implements Exibivel {
     public AcaoSustentavel getUltimaAcao() {
         return ultimaAcao;
     }
-
     public void setUltimaAcao(AcaoSustentavel ultimaAcao) {
         this.ultimaAcao = ultimaAcao;
     }

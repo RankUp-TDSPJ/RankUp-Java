@@ -26,13 +26,14 @@ public class AcaoSustentavel extends Acao implements Exibivel {
 
     @Override
     public void exibir() {
-
+        exibirAcao();
     }
+
+
 
     public double getFatorCO2() {
         return fatorCO2;
     }
-
     public void setFatorCO2(double fatorCO2) {
         this.fatorCO2 = fatorCO2;
     }
@@ -40,7 +41,6 @@ public class AcaoSustentavel extends Acao implements Exibivel {
     public double getPontosPorAcao() {
         return pontosPorAcao;
     }
-
     public void setPontosPorAcao(double pontosPorAcao) {
         this.pontosPorAcao = pontosPorAcao;
     }
