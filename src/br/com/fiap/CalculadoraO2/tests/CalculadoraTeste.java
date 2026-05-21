@@ -24,7 +24,7 @@ public class CalculadoraTeste {
             System.out.println("1. Cadastrar usuario");
             System.out.println("2. Registrar acao sustentavel");
             System.out.println("3. Ver perfil e pontuacao");
-            System.out.println("0. Sair");
+            System.out.println("0. Sair");  
             System.out.print("Escolha uma opcao: ");
             opcao = leitor.nextInt();
             leitor.nextLine();
