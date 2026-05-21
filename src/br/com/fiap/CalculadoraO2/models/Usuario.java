@@ -13,21 +13,16 @@ public class Usuario implements Exibivel {
         this.nome = nome;
         this.email = email;
         this.idade = idade;
-        this.pontuacao = null;
+        this.pontuacao = new PontuacaoUsuario();
 
     }
 
     public void exibirPerfil() {
-        System.out.println("==== Perfil do Usuario ====");
+        System.out.println("\n=== Perfil do Usuario ===");
         System.out.println("Nome: " + nome);
         System.out.println("Email: " + email);
         System.out.println("Idade: " + idade);
-        if (pontuacao != null) {
-            pontuacao.exibirPontuacao();
-        } else {
-            System.out.println("Nenhuma acao registrada ainda.");
-        }
-
+        pontuacao.exibirPontuacao();
     }
 
     @Override
@@ -60,8 +55,5 @@ public class Usuario implements Exibivel {
 
     public PontuacaoUsuario getPontuacao() {
         return pontuacao;
-    }
-    public void setPontuacao(PontuacaoUsuario pontuacao) {
-        this.pontuacao = pontuacao;
     }
 }

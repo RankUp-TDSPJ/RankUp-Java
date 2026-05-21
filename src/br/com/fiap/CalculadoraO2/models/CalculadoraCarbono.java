@@ -4,12 +4,12 @@ public class CalculadoraCarbono {
 
     private static double fatorEmissao = 0.5;
 
-    public static double calcularImpacto(AcaoSustentavel acao) {
-        return acao.getFatorCO2() * fatorEmissao;
+    public static double calcularImpacto(AcaoSustentavel acao, double quantidade) {
+        return acao.getFatorCO2() * quantidade * fatorEmissao;
     }
 
-    public static int avaliarAcao(AcaoSustentavel acao) {
-        double impacto = calcularImpacto(acao);
+    public static int avaliarAcao(AcaoSustentavel acao, double quantidade) {
+        double impacto = calcularImpacto(acao, quantidade);
         int pontuacao = (int) (impacto * 10);
 
         if (pontuacao > 100) pontuacao = 100;
