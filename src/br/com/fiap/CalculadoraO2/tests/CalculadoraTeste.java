@@ -83,7 +83,7 @@ public class CalculadoraTeste {
                     System.out.print("Digite a data (ex: 13/05/2026): ");
                     String data = leitor.nextLine();
 
-                    RegistraAcao registro = new RegistraAcao(acoes[escolha], quantidade, data);
+                    RegistroAcao registro = new RegistroAcao(acoes[escolha], quantidade, data);
                     usuario.getPontuacao().adicionarRegistro(registro);
 
                     int nivelImpacto = CalculadoraCarbono.avaliarAcao(acoes[escolha], quantidade);
@@ -102,13 +102,13 @@ public class CalculadoraTeste {
                     System.out.println("Idade: " + usuario.getIdade());
 
                     System.out.println("\n=== Historico de Acoes ===");
-                    RegistraAcao[] registros = usuario.getPontuacao().getRegistros();
+                    RegistroAcao[] registros = usuario.getPontuacao().getRegistros();
                     int total = usuario.getPontuacao().getTotalRegistros();
 
                     if (total == 0) {
                         System.out.println("Nenhuma acao registrada ainda.");
                     } else {
-                        for (RegistraAcao r : registros) {
+                        for (RegistroAcao r : registros) {
                             if (r != null) {
                                 r.exibirRegistro();
                             }

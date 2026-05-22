@@ -5,16 +5,16 @@ import br.com.fiap.CalculadoraO2.interfaces.Exibivel;
 public class PontuacaoUsuario implements Exibivel {
 
     private double pontuacaoTotal;
-    private RegistraAcao[] registros;
+    private RegistroAcao[] registros;
     private int totalRegistros;
 
     public PontuacaoUsuario() {
         this.pontuacaoTotal = 0;
-        this.registros = new RegistraAcao[10];
+        this.registros = new RegistroAcao[10];
         this.totalRegistros = 0;
     }
 
-    public void adicionarRegistro(RegistraAcao registro) {
+    public void adicionarRegistro(RegistroAcao registro) {
         if (totalRegistros < registros.length) {
             registros[totalRegistros] = registro;
             totalRegistros++;
@@ -44,7 +44,7 @@ public class PontuacaoUsuario implements Exibivel {
 
 
 
-    public RegistraAcao[] getRegistros() {
+    public RegistroAcao[] getRegistros() {
         return registros;
     }
     public double getPontuacaoTotal() {

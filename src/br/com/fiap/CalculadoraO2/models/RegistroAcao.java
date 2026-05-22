@@ -1,12 +1,12 @@
 package br.com.fiap.CalculadoraO2.models;
 
-public class RegistraAcao {
+public class RegistroAcao {
 
     private AcaoSustentavel acao;
     private double quantidade;
     private String data;
 
-    public RegistraAcao(AcaoSustentavel acao, double quantidade, String data) {
+    public RegistroAcao(AcaoSustentavel acao, double quantidade, String data) {
         this.acao = acao;
         this.quantidade = quantidade;
         this.data = data;
