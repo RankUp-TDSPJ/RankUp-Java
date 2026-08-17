@@ -1,0 +1,74 @@
+@startuml RankUp
+skinparam classAttributeIconSize 0
+
+interface Exibivel {
+  +exibir(): void
+}
+
+class Usuario {
+  -nome: String
+  -email: String
+  -idade: int
+  -pontuacao: PontuacaoUsuario
+  +exibirPerfil(): void
+  +exibir(): void
+}
+
+class PontuacaoUsuario {
+  -pontuacaoTotal: double
+  -registros: List<RegistroAcao>
+  +adicionarRegistro(r: RegistroAcao): void
+  +exibirPontuacao(): void
+  +exibir(): void
+}
+
+class RegistroAcao {
+  -acao: AcaoSustentavel
+  -quantidade: double
+  -data: String
+  +calcularImpactoCO2(): double
+  +calcularPontos(): double
+  +exibirRegistro(): void
+}
+
+class CalculadoraCarbono {
+  -{static} fatorEmissao: double
+  +{static} calcularImpacto(acao: AcaoSustentavel, quantidade: double): double
+  +{static} avaliarAcao(acao: AcaoSustentavel, quantidade: double): int
+}
+
+abstract class Acao {
+  -nome: String
+  -descricao: String
+  -classificacao: Classificacao
+  +exibirAcao(): void
+  +getNome(): String
+  +getDescricao(): String
+  +getClassificacao(): Classificacao
+}
+
+class AcaoSustentavel {
+  -fatorCO2: double
+  -pontosPorAcao: double
+  -unidade: String
+  +exibirAcao(): void
+  +exibir(): void
+}
+
+enum Classificacao {
+  SUSTENTAVEL
+  NAOSUSTENTAVEL
+}
+
+Usuario ..|> Exibivel
+PontuacaoUsuario ..|> Exibivel
+AcaoSustentavel ..|> Exibivel
+
+Usuario *--  PontuacaoUsuario
+PontuacaoUsuario --  RegistroAcao
+RegistroAcao -->  AcaoSustentavel
+CalculadoraCarbono ..> AcaoSustentavel
+Acao <|-- AcaoSustentavel
+Acao ..> Classificacao
+
+@enduml
