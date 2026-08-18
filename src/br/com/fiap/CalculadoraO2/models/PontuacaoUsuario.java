@@ -2,39 +2,27 @@ package br.com.fiap.CalculadoraO2.models;
 
 import br.com.fiap.CalculadoraO2.interfaces.Exibivel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PontuacaoUsuario implements Exibivel {
 
     private double pontuacaoTotal;
-    private RegistroAcao[] registros;
-    private int totalRegistros;
+    private List<RegistroAcao> registros;
 
     public PontuacaoUsuario() {
         this.pontuacaoTotal = 0;
-        this.registros = new RegistroAcao[10];
-        this.totalRegistros = 0;
+        this.registros = new ArrayList<>();
     }
 
     public void adicionarRegistro(RegistroAcao registro) {
-        if (totalRegistros < registros.length) {
-            registros[totalRegistros] = registro;
-            totalRegistros++;
-            this.pontuacaoTotal += registro.calcularPontos();
-        } else {
-            System.out.println("Limite de acoes atingido!");
-        }
+        registros.add(registro);
+        System.out.println("\n=== Registro Adicionado com Sucesso ===");
     }
 
     public void exibirPontuacao() {
         System.out.println("\n=== Historico de Acoes ===");
-        if (totalRegistros == 0) {
-            System.out.println("Nenhuma acao registrada ainda.");
-            return;
-        }
-        for (int i = 0; i < totalRegistros; i++) {
-            registros[i].exibirRegistro();
-        }
-        System.out.println("-------------------------");
-        System.out.println("Pontuacao total: " + pontuacaoTotal);
+        for (RegistroAcao r : registros) { r.exibirRegistro(); }
     }
 
     @Override
@@ -42,16 +30,10 @@ public class PontuacaoUsuario implements Exibivel {
         exibirPontuacao();
     }
 
-
-
-    public RegistroAcao[] getRegistros() {
+    public List<RegistroAcao> getRegistros() {
         return registros;
     }
     public double getPontuacaoTotal() {
         return pontuacaoTotal;
     }
-    public int getTotalRegistros() {
-        return totalRegistros;
-    }
-
 }

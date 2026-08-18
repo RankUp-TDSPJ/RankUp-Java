@@ -1,6 +1,8 @@
 package br.com.fiap.CalculadoraO2.tests;
 
 import br.com.fiap.CalculadoraO2.models.*;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class CalculadoraTeste {
@@ -10,14 +12,16 @@ public class CalculadoraTeste {
         Usuario usuario = null;
         int opcao = 0;
 
-        AcaoSustentavel[] acoes = {
+        List<AcaoSustentavel> acoes = List.of(
                 new AcaoSustentavel("Usar transporte publico", "Reduza emissoes usando onibus",
                         2.5, 10.0, "viagens"),
                 new AcaoSustentavel("Reciclar lixo", "Separe o lixo corretamente",
                         1.5, 8.0, "kg"),
                 new AcaoSustentavel("Economizar energia", "Desligue aparelhos em standby",
                         3.0, 12.0, "horas")
-        };
+        );
+
+
 
         do {
             System.out.println("\n=== Calculadora de Carbono ===");
@@ -51,15 +55,15 @@ public class CalculadoraTeste {
 
 
                     System.out.println("\n=== Acoes Disponiveis ===");
-                    for (int acaoo = 0; acaoo < acoes.length; acaoo++) {
-                        System.out.println((acaoo + 1) + ". " + acoes[acaoo].getNome());
+                    for (int acaoo = 0; acaoo < acoes.size(); acaoo++) {
+                        System.out.println((acaoo + 1) + ". " + acoes.get(acaoo).getNome());
                     }
 
                     System.out.print("Escolha uma acao: ");
                     int escolha = leitor.nextInt() - 1;
                     leitor.nextLine();
 
-                    if (escolha < 0 || escolha >= acoes.length) {
+                    if (escolha < 0 || escolha >= acoes.size()) {
                         System.out.println("Opcao invalida!");
                         break;
                     }
@@ -83,10 +87,10 @@ public class CalculadoraTeste {
                     System.out.print("Digite a data (ex: 13/05/2026): ");
                     String data = leitor.nextLine();
 
-                    RegistroAcao registro = new RegistroAcao(acoes[escolha], quantidade, data);
+                    RegistroAcao registro = new RegistroAcao(acoes.get(escolha), quantidade, data);
                     usuario.getPontuacao().adicionarRegistro(registro);
 
-                    int nivelImpacto = CalculadoraCarbono.avaliarAcao(acoes[escolha], quantidade);
+                    int nivelImpacto = CalculadoraCarbono.avaliarAcao(acoes.get(escolha), quantidade);
                     System.out.println("Acao registrada! Nivel de impacto: " + nivelImpacto + "/100");
                     break;
 
@@ -102,8 +106,8 @@ public class CalculadoraTeste {
                     System.out.println("Idade: " + usuario.getIdade());
 
                     System.out.println("\n=== Historico de Acoes ===");
-                    RegistroAcao[] registros = usuario.getPontuacao().getRegistros();
-                    int total = usuario.getPontuacao().getTotalRegistros();
+                    List<RegistroAcao> registros = usuario.getPontuacao().getRegistros();
+                    int total = registros.size();
 
                     if (total == 0) {
                         System.out.println("Nenhuma acao registrada ainda.");
