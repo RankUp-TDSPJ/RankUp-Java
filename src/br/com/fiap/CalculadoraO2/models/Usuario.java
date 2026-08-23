@@ -4,6 +4,7 @@ import br.com.fiap.CalculadoraO2.interfaces.Exibivel;
 
 public class Usuario implements Exibivel {
 
+    private int id;
     private String nome;
     private String email;
     private int idade;
@@ -30,11 +31,18 @@ public class Usuario implements Exibivel {
         exibirPerfil();
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -42,6 +50,7 @@ public class Usuario implements Exibivel {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -49,11 +58,16 @@ public class Usuario implements Exibivel {
     public int getIdade() {
         return idade;
     }
+
     public void setIdade(int idade) {
         this.idade = idade;
     }
 
     public PontuacaoUsuario getPontuacao() {
         return pontuacao;
+    }
+
+    public void setPontuacao(PontuacaoUsuario pontuacao) {
+        this.pontuacao = pontuacao;
     }
 }
