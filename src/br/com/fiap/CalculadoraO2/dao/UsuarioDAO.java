@@ -135,7 +135,41 @@ public class UsuarioDAO {
         return proximo;
     }
 
+    public Usuario buscarPorId(int id) {
+        conexao = ConnectionFactory.obterconexao();
+        Usuario usuario = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
+        try {
+            String sql = "select * from tbl_usuario where ID_USUARIO = ?";
+            ps = conexao.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String tipo = rs.getString(6);
+
+                if ("ADMIN".equals(tipo)) {
+                    usuario = new UsuarioAdmin(rs.getString(2), rs.getString(3), rs.getInt(4));
+                } else {
+                    usuario = new UsuarioComum(rs.getString(2), rs.getString(3), rs.getInt(4));
+                }
+
+                usuario.setId(rs.getInt(1));
+                usuario.getPontuacao().setPontuacaoTotal(rs.getDouble(5));
+            }
+
+            rs.close();
+            ps.close();
+            conexao.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return usuario;
+    }
 
 
 

@@ -30,6 +30,7 @@ public class CalculadoraTeste {
             System.out.println("3. Ver perfil e pontuacao");
             System.out.println("4. Listar usuarios do banco");
             System.out.println("5. Deletar usuario do banco");
+            System.out.println("6. Carregar usuario existente");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opcao: ");
             opcao = leitor.nextInt();
@@ -147,6 +148,8 @@ public class CalculadoraTeste {
                         }
                         System.out.println("-------------------------");
                         System.out.println("Pontuacao total: " + usuario.getPontuacao().getPontuacaoTotal());
+                        System.out.println("Pontuacao total: " + usuario.getPontuacao().getPontuacaoTotal());
+                        System.out.println("Nivel: " + usuario.getPontuacao().calcularNivel());
                     }
                     break;
 
@@ -174,6 +177,21 @@ public class CalculadoraTeste {
                         System.out.println("Usuario deletado com sucesso!");
                     } catch (Exception e) {
                         System.out.println("Erro ao deletar: " + e.getMessage());
+                    }
+                    break;
+
+
+                case 6:
+                    System.out.print("Digite o ID do usuario que deseja carregar: ");
+                    int idCarregar = leitor.nextInt();
+                    leitor.nextLine();
+
+                    usuario = usuarioDAO.buscarPorId(idCarregar);
+
+                    if (usuario == null) {
+                        System.out.println("Nenhum usuario encontrado com esse ID.");
+                    } else {
+                        System.out.println("Usuario carregado: " + usuario.getNome());
                     }
                     break;
 
