@@ -17,6 +17,7 @@ public class PontuacaoUsuario implements Exibivel {
 
     public void adicionarRegistro(RegistroAcao registro) {
         registros.add(registro);
+        this.pontuacaoTotal += registro.calcularPontos();
         System.out.println("\n=== Registro Adicionado com Sucesso ===");
     }
 
@@ -35,5 +36,9 @@ public class PontuacaoUsuario implements Exibivel {
     }
     public double getPontuacaoTotal() {
         return pontuacaoTotal;
+    }
+
+    public void setPontuacaoTotal(double pontuacaoTotal) {
+        this.pontuacaoTotal = pontuacaoTotal;
     }
 }
