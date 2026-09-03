@@ -2,13 +2,17 @@ package br.com.fiap.CalculadoraO2.models;
 
 import br.com.fiap.CalculadoraO2.interfaces.Exibivel;
 
-public class Usuario implements Exibivel {
+public abstract class Usuario implements Exibivel {
 
     private int id;
     private String nome;
     private String email;
     private int idade;
     private PontuacaoUsuario pontuacao;
+
+    public abstract String getTipo();
+    public abstract void exibirPermissoes();
+
 
     public Usuario (String nome, String email, int idade) {
         this.nome = nome;

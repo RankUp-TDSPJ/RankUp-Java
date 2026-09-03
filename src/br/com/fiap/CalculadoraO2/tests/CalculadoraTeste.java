@@ -45,12 +45,29 @@ public class CalculadoraTeste {
                     System.out.print("Digite sua idade: ");
                     int idade = leitor.nextInt();
                     leitor.nextLine();
-                    usuario = new Usuario(nome, email, idade);
 
-                    // cadastro ja salva no banco na hora, sem precisar de um case separado
+                    System.out.println("Tipo de usuario(1 | 2):");
+                    System.out.println("1. Comum");
+                    System.out.println("2. Admin");
+                    System.out.print("Escolha: ");
+                    int tipoEscolhido = leitor.nextInt();
+                    leitor.nextLine();
+
+                    if (tipoEscolhido == 1) {
+                        usuario = new UsuarioComum(nome, email, idade);
+                    } else if (tipoEscolhido == 2) {
+                        usuario = new UsuarioAdmin(nome, email, idade);
+                    } else {
+                        System.out.println("Tipo invalido! Cadastro cancelado.");
+                        break;
+                    }
+
+                    int novoId = usuarioDAO.proximoId();
+                    usuario.setId(novoId);
+
                     try {
                         usuarioDAO.cadastrar(usuario);
-                        System.out.println("Usuario cadastrado e salvo no banco com sucesso!");
+                        System.out.println("Usuario cadastrado e salvo no banco com sucesso! ID: " + novoId);
                     } catch (Exception e) {
                         System.out.println("Erro ao salvar no banco: " + e.getMessage());
                     }
@@ -96,9 +113,9 @@ public class CalculadoraTeste {
                     String data = leitor.nextLine();
 
                     RegistroAcao registro = new RegistroAcao(acoes.get(escolha), quantidade, data);
-                    usuario.getPontuacao().adicionarRegistro(registro); // soma pontos em memoria
+                    usuario.getPontuacao().adicionarRegistro(registro);
 
-                    // sem isso, a pontuacao so mudava em memoria e nunca ia pro banco
+
                     usuarioDAO.update(usuario);
 
                     int nivelImpacto = CalculadoraCarbono.avaliarAcao(acoes.get(escolha), quantidade);

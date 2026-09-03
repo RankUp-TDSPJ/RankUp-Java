@@ -1,6 +1,8 @@
 package br.com.fiap.CalculadoraO2.dao;
 
 import br.com.fiap.CalculadoraO2.models.Usuario;
+import br.com.fiap.CalculadoraO2.models.UsuarioAdmin;
+import br.com.fiap.CalculadoraO2.models.UsuarioComum;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,8 +21,8 @@ public class UsuarioDAO {
 
         try {
                 String sql = "insert into tbl_usuario (ID_USUARIO, NOME_USUARIO, EMAIL_USUARIO, " +
-                        "IDADE_USUARIO, PONTUACAOTOTAL_USUARIO)" +
-                        "values(?, ?, ?, ?, ?)";
+                        "IDADE_USUARIO, PONTUACAOTOTAL_USUARIO, TIPO_USUARIO)" +
+                        "values(?, ?, ?, ?, ?, ?)";
 
             ps = conexao.prepareStatement(sql);
             ps.setInt(1, usuario.getId());
@@ -28,6 +30,7 @@ public class UsuarioDAO {
             ps.setString(3, usuario.getEmail());
             ps.setInt(4, usuario.getIdade());
             ps.setDouble(5, usuario.getPontuacao().getPontuacaoTotal());
+            ps.setString(6, usuario.getTipo());
             ps.executeUpdate();
             ps.close();
             conexao.close();
@@ -48,12 +51,20 @@ public class UsuarioDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Usuario user = new Usuario(rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4));
+                String tipo = rs.getString(6);
+                Usuario user;
+
+                if ("ADMIN".equals(tipo)) {
+                    user = new UsuarioAdmin(rs.getString(2), rs.getString(3), rs.getInt(4));
+                } else {
+                    user = new UsuarioComum(rs.getString(2), rs.getString(3), rs.getInt(4));
+                }
+
+                user.setId(rs.getInt(1));
                 user.getPontuacao().setPontuacaoTotal(rs.getDouble(5));
                 usuarios.add(user);
             }
+            rs.close();
             ps.close();
             conexao.close();
 
@@ -103,6 +114,25 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int proximoId() {
+        conexao = ConnectionFactory.obterconexao();
+        int proximo = 1;
+        try {
+            String sql = "select max(ID_USUARIO) as maior from tbl_usuario";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                proximo = rs.getInt("maior") + 1;
+            }
+            rs.close();
+            ps.close();
+            conexao.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return proximo;
     }
 
 
