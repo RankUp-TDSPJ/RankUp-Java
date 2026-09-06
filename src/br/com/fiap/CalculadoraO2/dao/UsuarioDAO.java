@@ -15,7 +15,7 @@ public class UsuarioDAO {
 
     private Connection conexao;
 
-    public void cadastrar(Usuario usuario) {
+    public void cadastrarUser(Usuario usuario) {
         conexao = ConnectionFactory.obterconexao();
         PreparedStatement ps = null;
 
@@ -39,7 +39,7 @@ public class UsuarioDAO {
         }
     }
 
-    public List<Usuario> listarTodos() {
+    public List<Usuario> listarTodosUser() {
         conexao = ConnectionFactory.obterconexao();
         List<Usuario> usuarios = new ArrayList<>();
         PreparedStatement ps = null;
@@ -74,7 +74,7 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    public void update(Usuario usuario) {
+    public void updateUser(Usuario usuario) {
         conexao = ConnectionFactory.obterconexao();
         PreparedStatement ps = null;
 
@@ -98,7 +98,7 @@ public class UsuarioDAO {
 
     }
 
-    public void delete(int id) {
+    public void deleteUser(int id) {
         conexao = ConnectionFactory.obterconexao();
         PreparedStatement ps = null;
         try {
@@ -116,7 +116,7 @@ public class UsuarioDAO {
         }
     }
 
-    public int proximoId() {
+    public int proximoIdUser() {
         conexao = ConnectionFactory.obterconexao();
         int proximo = 1;
         try {
@@ -135,7 +135,7 @@ public class UsuarioDAO {
         return proximo;
     }
 
-    public Usuario buscarPorId(int id) {
+    public Usuario buscarPorIdUser(int id) {
         conexao = ConnectionFactory.obterconexao();
         Usuario usuario = null;
         PreparedStatement ps = null;
@@ -170,12 +170,6 @@ public class UsuarioDAO {
 
         return usuario;
     }
-
-
-
-
-
-
 
 
 }
