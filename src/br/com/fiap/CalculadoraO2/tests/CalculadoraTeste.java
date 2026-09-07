@@ -81,6 +81,8 @@ public class CalculadoraTeste {
                     if (usuario == null) {
                         System.out.println("Nenhum usuario encontrado com esse email.");
                     } else {
+                        List<RegistroAcao> historico = registroAcaoDAO.listarPorUsuario(usuario.getId(), acoes);
+                        usuario.getPontuacao().carregarRegistros(historico);
                         System.out.println("Login realizado! Bem-vindo, " + usuario.getNome());
                     }
                     break;
@@ -180,7 +182,7 @@ public class CalculadoraTeste {
                     listarUsuarios(usuarioDAO);
                     break;
                 case 6:
-                    deletarUsuario(leitor, usuarioDAO);
+                    deletarUsuario(leitor, usuarioDAO, registroAcaoDAO);
                     break;
                 case 0:
                     System.out.println("Fazendo logout...");
@@ -256,10 +258,11 @@ public class CalculadoraTeste {
             for (RegistroAcao r : registros) {
                 r.exibirRegistro();
             }
-            System.out.println("-------------------------");
-            System.out.println("Pontuacao total: " + usuario.getPontuacao().getPontuacaoTotal());
-            System.out.println("Nivel: " + usuario.getPontuacao().calcularNivel());
         }
+
+        System.out.println("-------------------------");
+        System.out.println("Pontuacao total: " + usuario.getPontuacao().getPontuacaoTotal());
+        System.out.println("Nivel: " + usuario.getPontuacao().calcularNivel());
     }
 
     private static void verPosicaoRanking(Usuario usuario, UsuarioDAO usuarioDAO, Ranking ranking) {
@@ -285,10 +288,19 @@ public class CalculadoraTeste {
         }
     }
 
-    private static void deletarUsuario(Scanner leitor, UsuarioDAO usuarioDAO) {
+    private static void deletarUsuario(Scanner leitor, UsuarioDAO usuarioDAO, RegistroAcaoDAO registroAcaoDAO) {
         System.out.print("Digite o ID do usuario a deletar: ");
         int idDeletar = leitor.nextInt();
         leitor.nextLine();
+
+        Usuario existente = usuarioDAO.buscarPorIdUser(idDeletar);
+
+        if (existente == null) {
+            System.out.println("Nenhum usuario encontrado com esse ID.");
+            return;
+        }
+
+        registroAcaoDAO.deletarRegistroUser(idDeletar);
         usuarioDAO.deleteUser(idDeletar);
         System.out.println("Usuario deletado com sucesso!");
     }

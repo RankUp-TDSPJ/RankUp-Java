@@ -47,6 +47,10 @@ public class PontuacaoUsuario implements Exibivel {
         System.out.println("\n=== Registro Adicionado com Sucesso ===");
     }
 
+    public void carregarRegistros(List<RegistroAcao> registrosCarregados) {
+        this.registros = new ArrayList<>(registrosCarregados);
+    }
+
     public void exibirPontuacao() {
         System.out.println("\n=== Historico de Acoes ===");
         for (RegistroAcao r : registros) { r.exibirRegistro(); }

@@ -46,7 +46,7 @@ public class UsuarioDAO {
         ResultSet rs = null;
 
         try {
-            String sql = "select * from tbl_usuario";
+            String sql = "select * from tbl_usuario order by ID_USUARIO";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
