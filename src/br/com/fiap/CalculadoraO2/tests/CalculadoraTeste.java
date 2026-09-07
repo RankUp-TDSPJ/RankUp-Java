@@ -145,8 +145,7 @@ public class CalculadoraTeste {
         } while (opcao != 0);
     }
 
-    private static void menuAdmin(Usuario usuario, Scanner leitor, UsuarioDAO usuarioDAO,
-                                  RegistroAcaoDAO registroAcaoDAO, Ranking ranking,
+    private static void menuAdmin(Usuario usuario, Scanner leitor, UsuarioDAO usuarioDAO, RegistroAcaoDAO registroAcaoDAO, Ranking ranking,
                                   List<AcaoSustentavel> acoes) {
 
         int opcao;
