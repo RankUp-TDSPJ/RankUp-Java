@@ -32,6 +32,7 @@ package "models" {
       -pontuacaoTotal: double
       -registros: List<RegistroAcao>
       +adicionarRegistro(r: RegistroAcao): void
+      +carregarRegistros(registrosCarregados: List<RegistroAcao>): void
       +exibirPontuacao(): void
       +exibir(): void
       +contarTiposDistintos(): int
@@ -104,6 +105,8 @@ package "dao" {
       -conexao: Connection
       +proximoIdAcao(): int
       +cadastrarAcao(idUsuario: int, registro: RegistroAcao): void
+      +listarPorUsuario(idUsuario: int, acoesDisponiveis: List<AcaoSustentavel>): List<RegistroAcao>
+      +deletarRegistroUser(idUsuario: int): void
     }
 }
 
@@ -126,6 +129,7 @@ Ranking ..> Usuario : usa
 UsuarioDAO ..> Usuario : usa
 UsuarioDAO ..> ConnectionFactory : usa
 RegistroAcaoDAO ..> RegistroAcao : usa
+RegistroAcaoDAO ..> AcaoSustentavel : usa
 RegistroAcaoDAO ..> ConnectionFactory : usa
 
 @enduml
