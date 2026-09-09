@@ -239,7 +239,9 @@ public class CalculadoraTeste {
         usuarioDAO.updateUser(usuario);
 
         int nivelImpacto = CalculadoraCarbono.avaliarAcao(acoes.get(escolha), quantidade);
+        double co2Evitado = CalculadoraCarbono.calcularImpacto(acoes.get(escolha), quantidade);
         System.out.println("Acao registrada! Nivel de impacto: " + nivelImpacto + "/100");
+        System.out.println("CO2 nao emitido nesta acao: " + co2Evitado + " kg");
     }
 
     private static void verPerfil(Usuario usuario) {
@@ -263,6 +265,7 @@ public class CalculadoraTeste {
         System.out.println("-------------------------");
         System.out.println("Pontuacao total: " + usuario.getPontuacao().getPontuacaoTotal());
         System.out.println("Nivel: " + usuario.getPontuacao().calcularNivel());
+        System.out.println("CO2 total nao emitido: " + usuario.getPontuacao().calcularCo2TotalEvitado() + " kg");
     }
 
     private static void verPosicaoRanking(Usuario usuario, UsuarioDAO usuarioDAO, Ranking ranking) {

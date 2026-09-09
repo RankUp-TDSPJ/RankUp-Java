@@ -27,6 +27,16 @@ public class PontuacaoUsuario implements Exibivel {
         return tiposDistintos.size();
     }
 
+    public double calcularCo2TotalEvitado() {
+        double total = 0;
+
+        for (RegistroAcao r : registros) {
+            total += r.calcularImpactoCO2();
+        }
+
+        return total;
+    }
+
     public String calcularNivel() {
         int diversidade = contarTiposDistintos();
 

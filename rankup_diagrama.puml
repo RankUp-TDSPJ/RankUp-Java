@@ -37,6 +37,7 @@ package "models" {
       +exibir(): void
       +contarTiposDistintos(): int
       +calcularNivel(): String
+      +calcularCo2TotalEvitado(): double
     }
 
     class RegistroAcao {
