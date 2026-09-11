@@ -32,7 +32,6 @@ public class AcaoSustentavel extends Acao implements Exibivel {
     }
 
 
-
     public double getFatorCO2() {
         return fatorCO2;
     }
