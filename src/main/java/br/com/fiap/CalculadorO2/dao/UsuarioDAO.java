@@ -3,6 +3,7 @@ package br.com.fiap.CalculadorO2.dao;
 import br.com.fiap.CalculadorO2.models.Usuario;
 import br.com.fiap.CalculadorO2.models.UsuarioAdmin;
 import br.com.fiap.CalculadorO2.models.UsuarioComum;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UsuarioDAO {
 
     private Connection conexao;
@@ -172,7 +174,7 @@ public class UsuarioDAO {
     }
 
     public Usuario buscarPorEmailUser(String email) {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         Usuario usuario = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
