@@ -1,10 +1,16 @@
 package br.com.fiap.CalculadorO2.controller;
 
+import br.com.fiap.CalculadorO2.dto.AcaoResponse;
+import br.com.fiap.CalculadorO2.dto.HistoricoResponse;
+import br.com.fiap.CalculadorO2.dto.RegistroCriadoResponse;
+import br.com.fiap.CalculadorO2.dto.RegistroRequest;
 import br.com.fiap.CalculadorO2.mapper.AcaoMapper;
+import br.com.fiap.CalculadorO2.mapper.RegistroMapper;
 import br.com.fiap.CalculadorO2.models.RegistroAcao;
 import br.com.fiap.CalculadorO2.models.Usuario;
 import br.com.fiap.CalculadorO2.service.AcaoService;
 import br.com.fiap.CalculadorO2.service.RegistroAcaoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +36,6 @@ public class RegistroController {
                                                             @RequestBody RegistroRequest req) {
         Usuario usuario = registroAcaoBO.registrar(id, req.nomeAcao(), req.quantidade(), req.data());
 
-        // o registro recém-criado é o último da lista
         List<RegistroAcao> registros = usuario.getPontuacao().getRegistros();
         RegistroAcao criado = registros.get(registros.size() - 1);
 

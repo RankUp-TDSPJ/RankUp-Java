@@ -1,10 +1,13 @@
 package br.com.fiap.CalculadorO2.controller;
 
+import br.com.fiap.CalculadorO2.dto.*;
 import br.com.fiap.CalculadorO2.mapper.UsuarioMapper;
 import br.com.fiap.CalculadorO2.models.Usuario;
 import br.com.fiap.CalculadorO2.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UsuarioController {
@@ -36,7 +39,6 @@ public class UsuarioController {
         return UsuarioMapper.toResponse(usuarioService.atualizar(id, req.nome(), req.email(), req.idade()));
     }
 
-    // required = false: sem o cabeçalho, o valor chega null e a BO responde 403
     @GetMapping("/usuarios")
     public List<UsuarioResumoResponse> listar(
             @RequestHeader(value = "X-Usuario-Id", required = false) Integer idSolicitante) {
@@ -48,6 +50,6 @@ public class UsuarioController {
             @RequestHeader(value = "X-Usuario-Id", required = false) Integer idSolicitante,
             @PathVariable("id") int id) {
         usuarioService.deletar(idSolicitante, id);
-        return ResponseEntity.noContent().build();   // 204
+        return ResponseEntity.noContent().build();
     }
 }

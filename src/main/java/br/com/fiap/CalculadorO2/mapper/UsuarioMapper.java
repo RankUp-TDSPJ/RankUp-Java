@@ -1,5 +1,9 @@
 package br.com.fiap.CalculadorO2.mapper;
 
+import br.com.fiap.CalculadorO2.dto.PerfilResponse;
+import br.com.fiap.CalculadorO2.dto.RankingItemResponse;
+import br.com.fiap.CalculadorO2.dto.UsuarioResponse;
+import br.com.fiap.CalculadorO2.dto.UsuarioResumoResponse;
 import br.com.fiap.CalculadorO2.models.PontuacaoUsuario;
 import br.com.fiap.CalculadorO2.models.Usuario;
 

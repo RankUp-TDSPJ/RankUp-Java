@@ -1,5 +1,7 @@
 package br.com.fiap.CalculadorO2.mapper;
 
+import br.com.fiap.CalculadorO2.dto.HistoricoResponse;
+import br.com.fiap.CalculadorO2.dto.RegistroCriadoResponse;
 import br.com.fiap.CalculadorO2.models.RegistroAcao;
 import br.com.fiap.CalculadorO2.models.Usuario;
 

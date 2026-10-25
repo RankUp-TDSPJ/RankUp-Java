@@ -1,5 +1,6 @@
 package br.com.fiap.CalculadorO2.controller;
 
+import br.com.fiap.CalculadorO2.dto.RankingItemResponse;
 import br.com.fiap.CalculadorO2.mapper.UsuarioMapper;
 import br.com.fiap.CalculadorO2.models.Usuario;
 import br.com.fiap.CalculadorO2.service.RankingService;
