@@ -4,9 +4,11 @@ import br.com.fiap.CalculadorO2.dao.UsuarioDAO;
 import br.com.fiap.CalculadorO2.exception.ApiException;
 import br.com.fiap.CalculadorO2.models.Ranking;
 import br.com.fiap.CalculadorO2.models.Usuario;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RankingService {
 
     public record Posicao(int posicao, int totalUsuarios, double pontuacaoTotal) {}

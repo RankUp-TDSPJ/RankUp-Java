@@ -2,6 +2,7 @@ package br.com.fiap.CalculadorO2.dao;
 
 import br.com.fiap.CalculadorO2.models.AcaoSustentavel;
 import br.com.fiap.CalculadorO2.models.RegistroAcao;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class RegistroAcaoDAO {
 
     private Connection conexao;
