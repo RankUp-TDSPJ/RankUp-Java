@@ -8,9 +8,10 @@ public class ConnectionFactory {
     public static Connection obterconexao() {
         Connection conexao = null;
         try {
-            conexao = DriverManager.getConnection("jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl",
-                    "rm571211",
-                    "231207");
+            conexao = DriverManager.getConnection(
+                    System.getenv("SPRING_DATASOURCE_URL"),
+                    System.getenv("SPRING_DATASOURCE_USERNAME"),
+                    System.getenv("SPRING_DATASOURCE_PASSWORD"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
