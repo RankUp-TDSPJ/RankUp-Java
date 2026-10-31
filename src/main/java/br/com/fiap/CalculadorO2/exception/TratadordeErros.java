@@ -3,10 +3,11 @@ package br.com.fiap.CalculadorO2.exception;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Map;
 
-@RestController
+@RestControllerAdvice
 public class TratadordeErros {
 
     @ExceptionHandler(ApiException.class)
