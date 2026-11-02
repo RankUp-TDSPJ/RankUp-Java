@@ -1,11 +1,20 @@
-@startuml RankUp
+@startuml RankUp_models
 skinparam classAttributeIconSize 0
 
-package "models" {
-
+package "interfaces" {
     interface Exibivel {
       +exibir(): void
     }
+}
+
+package "enums" {
+    enum Classificacao {
+      SUSTENTAVEL
+      NAOSUSTENTAVEL
+    }
+}
+
+package "models" {
 
     abstract class Usuario {
       -id: int
@@ -13,17 +22,21 @@ package "models" {
       -email: String
       -idade: int
       -pontuacao: PontuacaoUsuario
+      +Usuario(nome: String, email: String, idade: int)
       +exibirPerfil(): void
       +exibir(): void
       +{abstract} getTipo(): String
       +{abstract} exibirPermissoes(): void
     }
+    note right of Usuario : getters e setters gerados\npelo Lombok (@Getter/@Setter)
 
     class UsuarioComum {
+      +getTipo(): String
       +exibirPermissoes(): void
     }
 
     class UsuarioAdmin {
+      +getTipo(): String
       +exibirPermissoes(): void
       +visualizarTodosUsuarios(usuarios: List<Usuario>): void
     }
@@ -31,39 +44,50 @@ package "models" {
     class PontuacaoUsuario {
       -pontuacaoTotal: double
       -registros: List<RegistroAcao>
-      +adicionarRegistro(r: RegistroAcao): void
+      +adicionarRegistro(registro: RegistroAcao): void
       +carregarRegistros(registrosCarregados: List<RegistroAcao>): void
       +exibirPontuacao(): void
       +exibir(): void
       +contarTiposDistintos(): int
       +calcularNivel(): String
       +calcularCo2TotalEvitado(): double
+      +getRegistros(): List<RegistroAcao>
+      +getPontuacaoTotal(): double
+      +setPontuacaoTotal(pontuacaoTotal: double): void
     }
 
     class RegistroAcao {
-      -id: int
+      -id_acao: int
       -acao: AcaoSustentavel
       -quantidade: double
       -data: String
+      +RegistroAcao(acao: AcaoSustentavel, quantidade: double, data: String)
       +calcularImpactoCO2(): double
       +calcularPontos(): double
       +exibirRegistro(): void
     }
+    note right of RegistroAcao : getters e setters gerados\npelo Lombok (@Getter/@Setter)
 
     class CalculadoraCarbono {
       -{static} fatorEmissao: double
       +{static} calcularImpacto(acao: AcaoSustentavel, quantidade: double): double
       +{static} avaliarAcao(acao: AcaoSustentavel, quantidade: double): int
+      +getFatorEmissao(): double
+      +setFatorEmissao(fatorEmissao: double): void
     }
 
     abstract class Acao {
       -nome: String
       -descricao: String
       -classificacao: Classificacao
-      +exibirAcao(): void
+      +Acao(nome: String, descricao: String, classificacao: Classificacao)
+      +{abstract} exibirAcao(): void
       +getNome(): String
+      +setNome(nome: String): void
       +getDescricao(): String
+      +setDescricao(descricao: String): void
       +getClassificacao(): Classificacao
+      +setClassificacao(classificacao: Classificacao): void
     }
 
     class AcaoSustentavel {
@@ -72,65 +96,36 @@ package "models" {
       -unidade: String
       +exibirAcao(): void
       +exibir(): void
-    }
-
-    enum Classificacao {
-      SUSTENTAVEL
-      NAOSUSTENTAVEL
+      +getFatorCO2(): double
+      +getPontosPorAcao(): double
+      +getUnidade(): String
     }
 
     class Ranking {
       +gerarRanking(usuarios: List<Usuario>): List<Usuario>
-      +posicaoDoUsuario(alvo: Usuario, usuarios: List<Usuario>): int
+      +posicaoUsuario(userAlvo: Usuario, usuarios: List<Usuario>): int
     }
 }
 
-package "dao" {
-
-    class ConnectionFactory {
-      +{static} obterconexao(): Connection
-    }
-
-    class UsuarioDAO {
-      -conexao: Connection
-      +cadastrarUser(usuario: Usuario): void
-      +listarTodosUser(): List<Usuario>
-      +updateUser(usuario: Usuario): void
-      +deleteUser(id: int): void
-      +proximoIdUser(): int
-      +buscarPorIdUser(id: int): Usuario
-      +buscarPorEmailUser(email: String): Usuario
-    }
-
-    class RegistroAcaoDAO {
-      -conexao: Connection
-      +proximoIdAcao(): int
-      +cadastrarAcao(idUsuario: int, registro: RegistroAcao): void
-      +listarPorUsuario(idUsuario: int, acoesDisponiveis: List<AcaoSustentavel>): List<RegistroAcao>
-      +deletarRegistroUser(idUsuario: int): void
-    }
-}
-
-' ===== Heranca e interfaces =====
+' ===== Implementacao de interface =====
 Usuario ..|> Exibivel
+PontuacaoUsuario ..|> Exibivel
 AcaoSustentavel ..|> Exibivel
+
+' ===== Heranca =====
 Usuario <|-- UsuarioComum
 Usuario <|-- UsuarioAdmin
 Acao <|-- AcaoSustentavel
 
-' ===== Composicao / associacao dentro de models =====
+' ===== Composicao / associacao =====
 Usuario *-- PontuacaoUsuario
-PontuacaoUsuario *-- RegistroAcao
+PontuacaoUsuario *-- "0..*" RegistroAcao
 RegistroAcao --> AcaoSustentavel
-CalculadoraCarbono ..> AcaoSustentavel : usa
-Acao ..> Classificacao
-Ranking ..> Usuario : usa
+Acao --> Classificacao
 
-' ===== Camada DAO =====
-UsuarioDAO ..> Usuario : usa
-UsuarioDAO ..> ConnectionFactory : usa
-RegistroAcaoDAO ..> RegistroAcao : usa
-RegistroAcaoDAO ..> AcaoSustentavel : usa
-RegistroAcaoDAO ..> ConnectionFactory : usa
+' ===== Dependencias =====
+CalculadoraCarbono ..> AcaoSustentavel : usa
+Ranking ..> Usuario : usa
+UsuarioAdmin ..> Usuario : visualiza
 
 @enduml

@@ -1,0 +1,46 @@
+@startuml RankUp_dao
+skinparam classAttributeIconSize 0
+
+package "dao" {
+
+    class ConnectionFactory {
+      +{static} obterconexao(): Connection
+    }
+
+    class UsuarioDAO <<Repository>> {
+      -conexao: Connection
+      +cadastrarUser(usuario: Usuario): void
+      +listarTodosUser(): List<Usuario>
+      +updateUser(usuario: Usuario): void
+      +deleteUser(id: int): void
+      +proximoIdUser(): int
+      +buscarPorIdUser(id: int): Usuario
+      +buscarPorEmailUser(email: String): Usuario
+    }
+
+    class RegistroAcaoDAO <<Repository>> {
+      -conexao: Connection
+      +proximoIdAcao(): int
+      +cadastrarAcao(idUsuario: int, registro: RegistroAcao): void
+      +listarPorUsuario(idUsuario: int, acoesDisponiveis: List<AcaoSustentavel>): List<RegistroAcao>
+      +deletarRegistroUser(idUsuario: int): void
+    }
+}
+
+package "models" {
+    abstract class Usuario
+    class UsuarioComum
+    class UsuarioAdmin
+    class RegistroAcao
+    class AcaoSustentavel
+}
+
+UsuarioDAO ..> Usuario : persiste / retorna
+UsuarioDAO ..> UsuarioComum : instancia
+UsuarioDAO ..> UsuarioAdmin : instancia
+UsuarioDAO ..> ConnectionFactory : usa
+RegistroAcaoDAO ..> RegistroAcao : persiste / retorna
+RegistroAcaoDAO ..> AcaoSustentavel : usa
+RegistroAcaoDAO ..> ConnectionFactory : usa
+
+@enduml
