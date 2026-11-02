@@ -15,10 +15,9 @@ import java.util.List;
 @Repository
 public class UsuarioDAO {
 
-    private Connection conexao;
 
     public void cadastrarUser(Usuario usuario) {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         PreparedStatement ps = null;
 
         try {
@@ -42,7 +41,7 @@ public class UsuarioDAO {
     }
 
     public List<Usuario> listarTodosUser() {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         List<Usuario> usuarios = new ArrayList<>();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -77,7 +76,7 @@ public class UsuarioDAO {
     }
 
     public void updateUser(Usuario usuario) {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         PreparedStatement ps = null;
 
         try {
@@ -101,7 +100,7 @@ public class UsuarioDAO {
     }
 
     public void deleteUser(int id) {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         PreparedStatement ps = null;
         try {
             ps = conexao.prepareStatement(
@@ -119,7 +118,7 @@ public class UsuarioDAO {
     }
 
     public int proximoIdUser() {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         int proximo = 1;
         try {
             String sql = "select max(ID_USUARIO) as maior from tbl_usuario";
@@ -138,7 +137,7 @@ public class UsuarioDAO {
     }
 
     public Usuario buscarPorIdUser(int id) {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         Usuario usuario = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
