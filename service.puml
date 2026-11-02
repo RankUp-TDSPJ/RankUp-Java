@@ -1,196 +1,128 @@
-@startuml RankUp_camadas
+@startuml RankUp_camadas_lr
 skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam packageStyle rectangle
+skinparam nodesep 25
+skinparam ranksep 40
+left to right direction
+hide empty members
+skinparam ClassBackgroundColor #FFFFFF
+skinparam ClassBorderColor #333333
+skinparam ArrowColor #333333
 
 package "controller" {
     class UsuarioController <<RestController>> {
-      -usuarioService: UsuarioService
-      +cadastrar(req: CadastroRequest): ResponseEntity<UsuarioResponse>
-      +login(req: LoginRequest): UsuarioResponse
-      +perfil(id: int): PerfilResponse
-      +atualizar(id: int, req: AtualizarUsuarioRequest): UsuarioResponse
-      +listar(idSolicitante: Integer): List<UsuarioResumoResponse>
-      +deletar(idSolicitante: Integer, id: int): ResponseEntity<Void>
+      +cadastrar()
+      +login()
+      +perfil()
+      +atualizar()
+      +listar()
+      +deletar()
     }
     class RegistroController <<RestController>> {
-      -registroAcaoBO: RegistroAcaoService
-      -acaoBO: AcaoService
-      +acoes(): List<AcaoResponse>
-      +registrar(id: int, req: RegistroRequest): ResponseEntity<RegistroCriadoResponse>
-      +historico(id: int): List<HistoricoResponse>
+      +acoes()
+      +registrar()
+      +historico()
     }
     class RankingController <<RestController>> {
-      -rankingService: RankingService
-      +ranking(limite: int): List<RankingItemResponse>
-      +posicao(id: int): RankingService.Posicao
+      +ranking()
+      +posicao()
     }
 }
 
 package "service" {
     class UsuarioService <<Service>> {
-      -{static} CODIGO_ADMIN: String
-      -usuarioDAO: UsuarioDAO
-      -registroAcaoDAO: RegistroAcaoDAO
-      -acaoBO: AcaoService
-      +cadastrar(nome: String, email: String, idade: int, codigoAdmin: String): Usuario
-      +login(email: String): Usuario
-      +buscarComHistorico(id: int): Usuario
-      +atualizar(id: int, nome: String, email: String, idade: int): Usuario
-      +listarTodos(idSolicitante: Integer): List<Usuario>
-      +deletar(idSolicitante: Integer, id: int): void
-      -exigirAdmin(idSolicitante: Integer): void
-      -validarCampos(nome: String, email: String, idade: int): void
+      +cadastrar()
+      +login()
+      +buscarComHistorico()
+      +atualizar()
+      +listarTodos()
+      +deletar()
     }
     class RegistroAcaoService <<Service>> {
-      -usuarioBO: UsuarioService
-      -acaoBO: AcaoService
-      -usuarioDAO: UsuarioDAO
-      -registroAcaoDAO: RegistroAcaoDAO
-      +registrar(idUsuario: int, nomeAcao: String, quantidade: double, data: String): Usuario
-      +historico(idUsuario: int): List<RegistroAcao>
+      +registrar()
+      +historico()
     }
     class RankingService <<Service>> {
-      -usuarioDAO: UsuarioDAO
-      -ranking: Ranking
-      +top(limite: int): List<Usuario>
-      +posicao(idUsuario: int): Posicao
-    }
-    class "RankingService.Posicao" as Posicao <<record>> {
-      +posicao: int
-      +totalUsuarios: int
-      +pontuacaoTotal: double
+      +top()
+      +posicao()
     }
     class AcaoService <<Service>> {
-      -acoes: List<AcaoSustentavel>
-      +listar(): List<AcaoSustentavel>
-      +buscarPorNome(nome: String): AcaoSustentavel
+      +listar()
+      +buscarPorNome()
     }
-}
-
-package "dto" {
-    class CadastroRequest <<record>> {
-      +nome: String
-      +email: String
-      +idade: int
-      +codigoAdmin: String
-    }
-    class LoginRequest <<record>> {
-      +email: String
-    }
-    class AtualizarUsuarioRequest <<record>> {
-      +nome: String
-      +email: String
-      +idade: int
-    }
-    class RegistroRequest <<record>> {
-      +nomeAcao: String
-      +quantidade: double
-      +data: String
-    }
-    class UsuarioResponse <<record>> {
-      +id: int
-      +nome: String
-      +email: String
-      +idade: int
-      +tipo: String
-    }
-    class UsuarioResumoResponse <<record>> {
-      +id: int
-      +nome: String
-      +email: String
-      +idade: int
-      +tipo: String
-      +pontuacaoTotal: double
-    }
-    class PerfilResponse <<record>> {
-      +id: int
-      +nome: String
-      +email: String
-      +idade: int
-      +tipo: String
-      +pontuacaoTotal: double
-      +nivel: String
-      +co2TotalEvitado: double
-    }
-    class AcaoResponse <<record>> {
-      +nome: String
-      +descricao: String
-      +unidade: String
-      +pontosPorAcao: double
-      +fatorCO2: double
-    }
-    class RegistroCriadoResponse <<record>> {
-      +idRegistro: int
-      +nomeAcao: String
-      +quantidade: double
-      +data: String
-      +pontosGanhos: double
-      +co2Evitado: double
-      +pontuacaoTotal: double
-      +nivel: String
-    }
-    class HistoricoResponse <<record>> {
-      +idRegistro: int
-      +nomeAcao: String
-      +unidade: String
-      +quantidade: double
-      +data: String
-      +pontos: double
-      +co2Evitado: double
-    }
-    class RankingItemResponse <<record>> {
-      +posicao: int
-      +id: int
-      +nome: String
-      +pontuacaoTotal: double
-    }
+    class "RankingService.Posicao" as Posicao <<record>>
 }
 
 package "mapper" {
     class UsuarioMapper {
-      +{static} toResponse(u: Usuario): UsuarioResponse
-      +{static} toPerfil(u: Usuario): PerfilResponse
-      +{static} toResumo(u: Usuario): UsuarioResumoResponse
-      +{static} toRankingItem(posicao: int, u: Usuario): RankingItemResponse
+      +{static} toResponse()
+      +{static} toPerfil()
+      +{static} toResumo()
+      +{static} toRankingItem()
     }
     class RegistroMapper {
-      +{static} toCriado(r: RegistroAcao, u: Usuario): RegistroCriadoResponse
-      +{static} toHistorico(r: RegistroAcao): HistoricoResponse
+      +{static} toCriado()
+      +{static} toHistorico()
     }
     class AcaoMapper {
-      +{static} toResponse(a: AcaoSustentavel): AcaoResponse
+      +{static} toResponse()
     }
+}
+
+package "dto" {
+    class CadastroRequest <<record>>
+    class LoginRequest <<record>>
+    class AtualizarUsuarioRequest <<record>>
+    class RegistroRequest <<record>>
+    class UsuarioResponse <<record>>
+    class UsuarioResumoResponse <<record>>
+    class PerfilResponse <<record>>
+    class AcaoResponse <<record>>
+    class RegistroCriadoResponse <<record>>
+    class HistoricoResponse <<record>>
+    class RankingItemResponse <<record>>
 }
 
 package "exception" {
     class ApiException {
       -status: int
-      +ApiException(status: int, mensagem: String)
       +getStatus(): int
     }
     class TratadordeErros <<RestControllerAdvice>> {
-      +tratar(e: ApiException): ResponseEntity<Map<String, String>>
+      +tratar(e: ApiException)
     }
 }
 
-' ===== Referencias externas (apenas nome) =====
 package "dao" {
     class UsuarioDAO
     class RegistroAcaoDAO
 }
 package "models" {
-    abstract class Usuario
-    class RegistroAcao
     class AcaoSustentavel
     class Ranking
 }
 
-' ===== Controller -> Service =====
+' Controller -> Service
 UsuarioController --> UsuarioService
 RegistroController --> RegistroAcaoService
 RegistroController --> AcaoService
 RankingController --> RankingService
 
-' ===== Service -> Service / DAO / Models =====
+' Controller -> Mapper
+UsuarioController ..> UsuarioMapper
+RegistroController ..> RegistroMapper
+RegistroController ..> AcaoMapper
+RankingController ..> UsuarioMapper
+
+' Controller -> DTO (entrada)
+UsuarioController ..> CadastroRequest
+UsuarioController ..> LoginRequest
+UsuarioController ..> AtualizarUsuarioRequest
+RegistroController ..> RegistroRequest
+
+' Service -> Service / DAO / Models
 RegistroAcaoService --> UsuarioService
 RegistroAcaoService --> AcaoService
 UsuarioService --> AcaoService
@@ -203,43 +135,19 @@ RankingService --> Ranking
 RankingService +-- Posicao
 AcaoService --> AcaoSustentavel
 
-' ===== Controller -> Mapper =====
-UsuarioController ..> UsuarioMapper
-RegistroController ..> RegistroMapper
-RegistroController ..> AcaoMapper
-RankingController ..> UsuarioMapper
-
-' ===== Controller -> DTO =====
-UsuarioController ..> CadastroRequest
-UsuarioController ..> LoginRequest
-UsuarioController ..> AtualizarUsuarioRequest
-UsuarioController ..> UsuarioResponse
-UsuarioController ..> PerfilResponse
-UsuarioController ..> UsuarioResumoResponse
-RegistroController ..> RegistroRequest
-RegistroController ..> RegistroCriadoResponse
-RegistroController ..> HistoricoResponse
-RegistroController ..> AcaoResponse
-RankingController ..> RankingItemResponse
-
-' ===== Mapper -> DTO / Models =====
+' Mapper -> DTO
 UsuarioMapper ..> UsuarioResponse
 UsuarioMapper ..> PerfilResponse
 UsuarioMapper ..> UsuarioResumoResponse
 UsuarioMapper ..> RankingItemResponse
-UsuarioMapper ..> Usuario
 RegistroMapper ..> RegistroCriadoResponse
 RegistroMapper ..> HistoricoResponse
-RegistroMapper ..> RegistroAcao
-RegistroMapper ..> Usuario
 AcaoMapper ..> AcaoResponse
-AcaoMapper ..> AcaoSustentavel
 
-' ===== Exceptions =====
+' Exceptions
 RuntimeException <|-- ApiException
 UsuarioService ..> ApiException : lança
 RegistroAcaoService ..> ApiException : lança
 RankingService ..> ApiException : lança
 TratadordeErros ..> ApiException : trata
-
 @enduml
