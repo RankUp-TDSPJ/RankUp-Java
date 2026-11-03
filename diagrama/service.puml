@@ -104,6 +104,22 @@ package "models" {
     class Ranking
 }
 
+package "config" {
+    class CorsConfig <<Configuration>> {
+      +addCorsMappings(registry: CorsRegistry): void
+    }
+}
+
+interface WebMvcConfigurer <<Spring>>
+WebMvcConfigurer <|.. CorsConfig
+
+note bottom of CorsConfig
+  libera o acesso do front-end (CORS)
+  a todas as rotas da API:
+  localhost e *.vercel.app
+end note
+
+
 ' Controller -> Service
 UsuarioController --> UsuarioService
 RegistroController --> RegistroAcaoService
