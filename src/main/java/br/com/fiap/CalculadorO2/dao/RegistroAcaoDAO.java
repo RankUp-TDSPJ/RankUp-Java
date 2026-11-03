@@ -14,10 +14,9 @@ import java.util.List;
 @Repository
 public class RegistroAcaoDAO {
 
-    private Connection conexao;
 
     public int proximoIdAcao() {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         int proximo = 1;
         try {
             String sql = "select max(ID_REGISTRO) as maior from tbl_registro_acao";
@@ -36,7 +35,7 @@ public class RegistroAcaoDAO {
     }
 
     public void cadastrarAcao(int idUsuario, RegistroAcao registro) {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         PreparedStatement ps = null;
 
         try {
@@ -60,7 +59,7 @@ public class RegistroAcaoDAO {
     }
 
     public void deletarRegistroUser(int idUsuario) {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         PreparedStatement ps = null;
         try {
             ps = conexao.prepareStatement("DELETE FROM TBL_REGISTRO_ACAO WHERE ID_USUARIO = ?");
@@ -74,7 +73,7 @@ public class RegistroAcaoDAO {
     }
 
     public List<RegistroAcao> listarPorUsuario(int idUsuario, List<AcaoSustentavel> acoesDisponiveis) {
-        conexao = ConnectionFactory.obterconexao();
+        Connection conexao = ConnectionFactory.obterconexao();
         List<RegistroAcao> registros = new ArrayList<>();
         PreparedStatement ps = null;
         ResultSet rs = null;
