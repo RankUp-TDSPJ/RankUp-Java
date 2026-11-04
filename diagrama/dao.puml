@@ -8,7 +8,6 @@ package "dao" {
     }
 
     class UsuarioDAO <<Repository>> {
-      -conexao: Connection
       +cadastrarUser(usuario: Usuario): void
       +listarTodosUser(): List<Usuario>
       +updateUser(usuario: Usuario): void
@@ -19,7 +18,6 @@ package "dao" {
     }
 
     class RegistroAcaoDAO <<Repository>> {
-      -conexao: Connection
       +proximoIdAcao(): int
       +cadastrarAcao(idUsuario: int, registro: RegistroAcao): void
       +listarPorUsuario(idUsuario: int, acoesDisponiveis: List<AcaoSustentavel>): List<RegistroAcao>

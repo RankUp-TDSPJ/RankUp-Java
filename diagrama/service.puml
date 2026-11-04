@@ -105,15 +105,15 @@ package "models" {
 }
 
 package "config" {
-    class CorsConfig <<Configuration>> {
+    class CorsFilter <<Configuration>> {
       +addCorsMappings(registry: CorsRegistry): void
     }
 }
 
 interface WebMvcConfigurer <<Spring>>
-WebMvcConfigurer <|.. CorsConfig
+WebMvcConfigurer <|.. CorsFilter
 
-note bottom of CorsConfig
+note bottom of CorsFilter
   libera o acesso do front-end (CORS)
   a todas as rotas da API:
   localhost e *.vercel.app

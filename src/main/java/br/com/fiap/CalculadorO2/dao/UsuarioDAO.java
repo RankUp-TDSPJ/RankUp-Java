@@ -36,7 +36,7 @@ public class UsuarioDAO {
             ps.close();
             conexao.close();
         } catch (SQLException e){
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
